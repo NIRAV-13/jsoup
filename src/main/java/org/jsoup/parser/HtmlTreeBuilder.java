@@ -64,6 +64,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
         return ParseSettings.htmlDefault;
     }
 
+    //
     @Override
     HtmlTreeBuilder newInstance() {
         return new HtmlTreeBuilder();

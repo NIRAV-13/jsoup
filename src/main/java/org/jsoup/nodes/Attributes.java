@@ -127,7 +127,8 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
      * @param value attribute value (may be null, to set a boolean attribute)
      * @return these attributes, for chaining
      */
-    public Attributes put(String key, @Nullable String value) {
+    public Attributes put(String key, @Nullable String value)
+    {
         Validate.notNull(key);
         int i = indexOfKey(key);
         if (i != NotFound)
@@ -137,9 +138,11 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         return this;
     }
 
-    void putIgnoreCase(String key, @Nullable String value) {
+    void putIgnoreCase(String key, @Nullable String value)
+    {
         int i = indexOfKeyIgnoreCase(key);
-        if (i != NotFound) {
+        if (i != NotFound)
+        {
             vals[i] = value;
             if (!keys[i].equals(key)) // case changed, update
                 keys[i] = key;

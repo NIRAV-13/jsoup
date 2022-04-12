@@ -31,6 +31,7 @@ public class HtmlToPlainText {
     private static final String userAgent = "Mozilla/5.0 (jsoup)";
     private static final int timeout = 5 * 1000;
 
+
     public static void main(String... args) throws IOException {
         Validate.isTrue(args.length == 1 || args.length == 2, "usage: java -cp jsoup.jar org.jsoup.examples.HtmlToPlainText url [selector]");
         final String url = args[0];
@@ -40,6 +41,8 @@ public class HtmlToPlainText {
         Document doc = Jsoup.connect(url).userAgent(userAgent).timeout(timeout).get();
 
         HtmlToPlainText formatter = new HtmlToPlainText();
+
+
 
         if (selector != null) {
             Elements elements = doc.select(selector); // get each element that matches the CSS selector

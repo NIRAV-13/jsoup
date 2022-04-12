@@ -13,6 +13,7 @@ import static org.jsoup.select.NodeFilter.FilterResult.STOP;
  *
  * @author Jonathan Hedley
  */
+
 public class Collector {
 
     private Collector() {}

@@ -6,8 +6,8 @@ import java.io.IOException;
  A data node, for contents of style, script tags etc, where contents should not show in text().
 
  @author Jonathan Hedley, jonathan@hedley.net */
-public class DataNode extends LeafNode {
-
+public class DataNode extends LeafNode
+{
     /**
      Create a new DataNode.
      @param data data contents

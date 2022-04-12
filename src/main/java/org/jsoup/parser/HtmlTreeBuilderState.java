@@ -16,7 +16,8 @@ import static org.jsoup.parser.HtmlTreeBuilderState.Constants.*;
 /**
  * The Tree Builder's current state. Each state embodies the processing for the state, and transitions to other states.
  */
-enum HtmlTreeBuilderState {
+enum HtmlTreeBuilderState
+{
     Initial {
         boolean process(Token t, HtmlTreeBuilder tb) {
             if (isWhitespace(t)) {

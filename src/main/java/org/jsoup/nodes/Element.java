@@ -87,6 +87,10 @@ public class Element extends Node {
         this(tag, baseUri, null);
     }
 
+    public Element() {
+
+    }
+
     /**
      Internal test to check if a nodelist object has been created.
      */

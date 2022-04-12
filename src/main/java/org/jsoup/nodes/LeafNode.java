@@ -1,19 +1,17 @@
 package org.jsoup.nodes;
 
-import org.jsoup.helper.Validate;
-
-import java.util.Collections;
 import java.util.List;
 
 abstract class LeafNode extends Node {
     Object value; // either a string value, or an attribute map (in the rare case multiple attributes are set)
-
-    protected final boolean hasAttributes() {
+    protected final boolean hasAttributes()
+    {
         return value instanceof Attributes;
     }
 
     @Override
-    public final Attributes attributes() {
+    public final Attributes attributes()
+    {
         ensureAttributes();
         return (Attributes) value;
     }
@@ -31,7 +29,6 @@ abstract class LeafNode extends Node {
     String coreValue() {
         return attr(nodeName());
     }
-
     void coreValue(String value) {
         attr(nodeName(), value);
     }
@@ -97,6 +94,9 @@ abstract class LeafNode extends Node {
     protected List<Node> ensureChildNodes() {
         return EmptyNodes;
     }
+
+    //For Factory Pattern
+    void outerHtmlTail(Appendable accum, int depth, Document.OutputSettings out) {}
 
     @Override
     protected LeafNode doClone(Node parent) {

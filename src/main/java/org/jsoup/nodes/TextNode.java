@@ -65,7 +65,8 @@ public class TextNode extends LeafNode {
      * @param offset string offset point to split node at.
      * @return the newly created text node containing the text after the offset.
      */
-    public TextNode splitText(int offset) {
+    public TextNode splitText(int offset)
+    {
         final String text = coreValue();
         Validate.isTrue(offset >= 0, "Split offset must be not be negative");
         Validate.isTrue(offset < text.length(), "Split offset must not be greater than current text length");

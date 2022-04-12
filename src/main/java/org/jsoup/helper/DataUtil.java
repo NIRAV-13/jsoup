@@ -154,20 +154,23 @@ public final class DataUtil {
                 charsetName = bomCharset.charset;
 
             if (charsetName == null) { // determine from meta. safe first parse as UTF-8
-                try {
+                try
+                {
                     CharBuffer defaultDecoded = UTF_8.decode(firstBytes);
                     if (defaultDecoded.hasArray())
                         doc = parser.parseInput(new CharArrayReader(defaultDecoded.array(), defaultDecoded.arrayOffset(), defaultDecoded.limit()), baseUri);
                     else
                         doc = parser.parseInput(defaultDecoded.toString(), baseUri);
-                } catch (UncheckedIOException e) {
+                } catch (UncheckedIOException e)
+                {
                     throw e.ioException();
                 }
 
                 // look for <meta http-equiv="Content-Type" content="text/html;charset=gb2312"> or HTML5 <meta charset="gb2312">
                 Elements metaElements = doc.select("meta[http-equiv=content-type], meta[charset]");
                 String foundCharset = null; // if not found, will keep utf-8 as best attempt
-                for (Element meta : metaElements) {
+                for (Element meta : metaElements)
+                {
                     if (meta.hasAttr("http-equiv"))
                         foundCharset = getCharsetFromContentType(meta.attr("content"));
                     if (foundCharset == null && meta.hasAttr("charset"))
@@ -177,30 +180,38 @@ public final class DataUtil {
                 }
 
                 // look for <?xml encoding='ISO-8859-1'?>
-                if (foundCharset == null && doc.childNodeSize() > 0) {
+                if (foundCharset == null && doc.childNodeSize() > 0)
+                {
                     Node first = doc.childNode(0);
                     XmlDeclaration decl = null;
                     if (first instanceof XmlDeclaration)
                         decl = (XmlDeclaration) first;
-                    else if (first instanceof Comment) {
+                    else if (first instanceof Comment)
+                    {
                         Comment comment = (Comment) first;
                         if (comment.isXmlDeclaration())
                             decl = comment.asXmlDeclaration();
                     }
-                    if (decl != null) {
+                    if (decl != null)
+                    {
                         if (decl.name().equalsIgnoreCase("xml"))
                             foundCharset = decl.attr("encoding");
                     }
                 }
                 foundCharset = validateCharset(foundCharset);
-                if (foundCharset != null && !foundCharset.equalsIgnoreCase(defaultCharsetName)) { // need to re-decode. (case insensitive check here to match how validate works)
+                if (foundCharset != null && !foundCharset.equalsIgnoreCase(defaultCharsetName))
+                { // need to re-decode. (case insensitive check here to match how validate works)
                     foundCharset = foundCharset.trim().replaceAll("[\"']", "");
                     charsetName = foundCharset;
                     doc = null;
-                } else if (!fullyRead) {
+                }
+                else if (!fullyRead)
+                {
                     doc = null;
                 }
-            } else { // specified by content type header (or by user on file load)
+            }
+            else
+            { // specified by content type header (or by user on file load)
                 Validate.notEmpty(charsetName, "Must set charset arg to character set of file to parse. Set to null to attempt to detect from HTML");
             }
             if (doc == null) {

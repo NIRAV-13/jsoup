@@ -15,15 +15,16 @@ import java.util.List;
 public class Parser {
     private TreeBuilder treeBuilder;
     private ParseErrorList errors;
-    private ParseSettings settings;
+
 
     /**
      * Create a new Parser, using the specified TreeBuilder
      * @param treeBuilder TreeBuilder to use to parse input into Documents.
      */
+    private ParseSettings QueryParsing;
     public Parser(TreeBuilder treeBuilder) {
         this.treeBuilder = treeBuilder;
-        settings = treeBuilder.defaultSettings();
+        QueryParsing = treeBuilder.defaultSettings(); //instance created
         errors = ParseErrorList.noTracking();
     }
 
@@ -31,14 +32,13 @@ public class Parser {
      Creates a new Parser as a deep copy of this; including initializing a new TreeBuilder. Allows independent (multi-threaded) use.
      @return a copied parser
      */
-    public Parser newInstance() {
-        return new Parser(this);
-    }
+
 
     private Parser(Parser copy) {
         treeBuilder = copy.treeBuilder.newInstance(); // because extended
+        QueryParsing = new ParseSettings(copy.QueryParsing); // making global instance for the ParseSetting with the private constructor and static method
         errors = new ParseErrorList(copy.errors); // only copies size, not contents
-        settings = new ParseSettings(copy.settings);
+
     }
     
     public Document parseInput(String html, String baseUri) {
@@ -57,6 +57,11 @@ public class Parser {
      * Get the TreeBuilder currently in use.
      * @return current TreeBuilder.
      */
+
+    public Parser getInstance() {
+        return new Parser(this);
+    }  // aa global point of instance is added
+
     public TreeBuilder getTreeBuilder() {
         return treeBuilder;
     }
@@ -99,13 +104,13 @@ public class Parser {
         return errors;
     }
 
-    public Parser settings(ParseSettings settings) {
-        this.settings = settings;
+    public Parser settings(ParseSettings Querupassing) {
+        this.QueryParsing = Querupassing;
         return this;
     }
 
     public ParseSettings settings() {
-        return settings;
+        return QueryParsing;
     }
 
     /**
